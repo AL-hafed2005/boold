@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سجل الحركات | IBDDMP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-crimson-600 selection:text-white">
+    <div id="toastContainer" class="fixed bottom-4 left-4 right-4 sm:right-auto sm:max-w-sm sm:w-full z-50 flex flex-col gap-3 pointer-events-none"></div>
+    <div id="app-nav"></div>
+
+    <section class="py-12 bg-slate-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mb-1">سجل الحركات</h2>
+        <p class="text-slate-500 text-sm mb-8">كل تبرع وصرف ونداء وحذف، مع اسم الموظف ووقت العملية (آخر 200 حركة).</p>
+        <div class="grid sm:grid-cols-3 gap-4 mb-6">
+          <div class="bg-white p-5 rounded-2xl border border-slate-200"><div class="text-xs font-bold text-slate-500">وحدات داخلة (تبرع/رصيد)</div><div id="sumIn" class="text-3xl font-black text-emerald-600">0</div></div>
+          <div class="bg-white p-5 rounded-2xl border border-slate-200"><div class="text-xs font-bold text-slate-500">وحدات مصروفة</div><div id="sumOut" class="text-3xl font-black text-crimson-600">0</div></div>
+          <div class="bg-white p-5 rounded-2xl border border-slate-200"><div class="text-xs font-bold text-slate-500">نداءات الاستغاثة</div><div id="sumAlerts" class="text-3xl font-black text-amber-600">0</div></div>
+        </div>
+        <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200">
+          <div class="mb-4"><select id="filterKind" class="sm:w-52 w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-sm font-bold focus:bg-white focus:ring-2 focus:ring-crimson-600 outline-none">
+            <option value="">كل العمليات</option><option value="donation">تبرع</option><option value="dispense">صرف</option>
+            <option value="adjust">إضافة رصيد</option><option value="alert">نداء استغاثة</option><option value="donor_deleted">حذف متبرع</option></select></div>
+          <div id="logCards" class="md:hidden space-y-2"></div>
+          <div class="hidden md:block overflow-x-auto"><table class="w-full text-right">
+            <thead><tr class="text-xs text-slate-500"><th class="p-3">الوقت</th><th class="p-3">العملية</th><th class="p-3">الفصيلة</th><th class="p-3">الوحدات</th><th class="p-3">التفاصيل</th><th class="p-3">بواسطة</th></tr></thead>
+            <tbody id="logRows"></tbody></table></div>
+        </div>
+      </div>
+    </section>
+
+    <div id="app-footer"></div>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/log.js"></script>
+</body>
+</html>

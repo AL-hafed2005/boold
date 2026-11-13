@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المتبرعون | IBDDMP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-crimson-600 selection:text-white">
+    <div id="toastContainer" class="fixed bottom-4 left-4 right-4 sm:right-auto sm:max-w-sm sm:w-full z-50 flex flex-col gap-3 pointer-events-none"></div>
+    <div id="app-nav"></div>
+
+    <section class="py-12 bg-slate-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mb-1">المتبرعون</h2>
+        <p class="text-slate-500 text-sm mb-8">سجّل المتبرعين، وسجّل كل تبرع ليزيد رصيد الفصيلة وعدّاد التبرعات. الحذف للمدير فقط.</p>
+        <div class="grid lg:grid-cols-12 gap-8">
+          <div class="lg:col-span-4 bg-white rounded-3xl p-6 shadow-sm border border-slate-200 h-fit">
+            <h3 class="text-lg font-black text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="user-plus" class="w-5 h-5 text-crimson-600"></i><span>تسجيل متبرع جديد</span></h3>
+            <form id="donorForm" class="space-y-3">
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">الاسم الكامل</label><input type="text" id="donorName" required class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-sm font-semibold focus:bg-white focus:ring-2 focus:ring-crimson-600 outline-none"></div>
+              <div class="grid grid-cols-2 gap-3">
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">الفصيلة</label><select id="donorBloodType" class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-sm font-bold focus:bg-white focus:ring-2 focus:ring-crimson-600 outline-none"><option value="O+">O+</option><option value="O-">O-</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select></div>
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">المدينة</label><select id="donorCity" class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-sm font-bold focus:bg-white focus:ring-2 focus:ring-crimson-600 outline-none"><option value="بغداد">بغداد</option><option value="الكوت">الكوت</option><option value="البصرة">البصرة</option><option value="أربيل">أربيل</option><option value="الموصل">الموصل</option></select></div>
+              </div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">رقم الهاتف (واتساب)</label><input type="tel" id="donorPhone" required placeholder="0770XXXXXXX" dir="ltr" class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-sm font-semibold focus:bg-white focus:ring-2 focus:ring-crimson-600 outline-none"></div>
+              <div class="grid grid-cols-2 gap-3">
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">آخر تبرع سابق</label><input type="date" id="donorLastDate" class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-sm font-semibold focus:bg-white focus:ring-2 focus:ring-crimson-600 outline-none"></div>
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">عدد تبرعاته السابقة</label><input type="number" id="donorCountInput" value="0" min="0" class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-sm font-semibold focus:bg-white focus:ring-2 focus:ring-crimson-600 outline-none"></div>
+              </div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">الحالة الصحية</label>
+                <select id="donorHealth" class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-sm font-bold focus:bg-white focus:ring-2 focus:ring-crimson-600 outline-none"><option value="eligible">مؤهل طبياً</option><option value="deferred">مؤجل مؤقتاً</option></select></div>
+              <button type="submit" class="w-full py-3 rounded-xl bg-slate-900 hover:bg-crimson-600 text-white font-bold text-sm transition shadow-md">حفظ المتبرع</button>
+            </form>
+          </div>
+          <div class="lg:col-span-8 bg-white rounded-3xl p-6 shadow-sm border border-slate-200">
+            <div class="flex flex-col sm:flex-row gap-3 mb-4">
+              <input type="search" id="searchBox" placeholder="بحث بالاسم أو الهاتف..." class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-sm font-semibold focus:bg-white focus:ring-2 focus:ring-crimson-600 outline-none">
+              <select id="filterType" class="sm:w-40 w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-sm font-bold focus:bg-white focus:ring-2 focus:ring-crimson-600 outline-none"><option value="">كل الفصائل</option><option value="O+">O+</option><option value="O-">O-</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
+              <span id="donorCount" class="shrink-0 self-center text-xs font-black bg-slate-100 text-slate-700 px-3 py-2 rounded-lg"></span>
+            </div>
+            <div id="donorCards" class="md:hidden space-y-3"></div>
+            <div class="hidden md:block overflow-x-auto">
+              <table class="w-full text-right">
+                <thead><tr class="text-xs text-slate-500"><th class="p-3">الاسم</th><th class="p-3">الفصيلة</th><th class="p-3">المدينة</th><th class="p-3">الهاتف</th><th class="p-3 text-center">التبرعات</th><th class="p-3">آخر تبرع</th><th class="p-3"></th></tr></thead>
+                <tbody id="donorRows"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="app-footer"></div>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/donors.js"></script>
+</body>
+</html>

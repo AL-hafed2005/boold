@@ -1,0 +1,1 @@
+mountLayout('architecture');

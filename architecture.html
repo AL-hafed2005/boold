@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المعمارية الذكية | IBDDMP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-crimson-600 selection:text-white">
+    <div id="toastContainer" class="fixed bottom-4 left-4 right-4 sm:right-auto sm:max-w-sm sm:w-full z-50 flex flex-col gap-3 pointer-events-none"></div>
+    <div id="app-nav"></div>
+
+    <section id="architecture" class="py-16 bg-white border-y border-slate-200/70">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-crimson-600 font-bold text-sm tracking-wider uppercase">الابتكار التقني في المشروع</span>
+                <h2 class="text-2xl sm:text-4xl font-black text-slate-900 mt-2 mb-4">الركائز الذكية لمنصة IBDDMP</h2>
+                <p class="text-slate-600 text-sm sm:text-base">يجمع النظام بين قواعد البيانات السحابية اللحظية وخوارزميات الذكاء الاصطناعي لمعالجة التحديات الحرجة في بنوك الدم.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-7 rounded-3xl bg-slate-50 border border-slate-200/80 hover:border-crimson-300 transition group">
+                    <div class="w-14 h-14 rounded-2xl bg-crimson-100 text-crimson-600 flex items-center justify-center mb-5 group-hover:scale-110 transition">
+                        <i data-lucide="brain-circuit" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">التنبؤ الاستباقي بالطلب</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">تحليل السلاسل الزمنية وجداول العمليات الجراحية للتنبؤ بالاحتياج المستقبلي لكل فصيلة دم وإطلاق حملات تبرع موجهة قبل حدوث العجز.</p>
+                </div>
+                <div class="p-7 rounded-3xl bg-slate-50 border border-slate-200/80 hover:border-crimson-300 transition group">
+                    <div class="w-14 h-14 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center mb-5 group-hover:scale-110 transition">
+                        <i data-lucide="radar" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">المطابقة الجغرافية الذكية</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">حساب نقاط الأولوية للمتبرعين (Scoring Heuristic) بناءً على القرب الجغرافي، الأهلية الطبية، ومعدل الاستجابة لإرسال نداءات الطوارئ فوراً.</p>
+                </div>
+                <div class="p-7 rounded-3xl bg-slate-50 border border-slate-200/80 hover:border-crimson-300 transition group">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-5 group-hover:scale-110 transition">
+                        <i data-lucide="clipboard-check" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">الفحص الصحي الآلي</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">محرك قواعد طبية رقمي يقيّم مؤشرات المتبرع (الهيموجلوبين، الوزن، الفترة الزمنية) لتقليل الازدحام وتوفير وقت الطواقم الطبية.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="app-footer"></div>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/architecture.js"></script>
+</body>
+</html>

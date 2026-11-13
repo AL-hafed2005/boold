@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الفحص الطبي الآلي | IBDDMP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-crimson-600 selection:text-white">
+    <div id="toastContainer" class="fixed bottom-4 left-4 right-4 sm:right-auto sm:max-w-sm sm:w-full z-50 flex flex-col gap-3 pointer-events-none"></div>
+    <div id="app-nav"></div>
+
+    <section id="eligibility" class="py-16 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-l from-slate-900 to-slate-800 rounded-3xl p-6 sm:p-10 text-white shadow-xl">
+                <div class="grid lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-5">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold mb-3">
+                            <i data-lucide="stethoscope" class="w-4 h-4"></i><span>محرك القواعد الطبية الذكي</span>
+                        </span>
+                        <h3 class="text-2xl sm:text-3xl font-black mb-3">الفحص الصحي الآلي لأهلية التبرع</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">أداة تفاعلية تتيح للمتبرع التحقق من أهليته الطبية قبل التوجه لبنك الدم، مما يقلل نسبة الرفض الميداني ويوفر وقت الكوادر الطبية.</p>
+                        <div id="eligibilityResultBox" class="p-5 rounded-2xl bg-slate-800/90 border border-slate-700">
+                            <div class="text-xs text-slate-400 font-bold mb-1">نتيجة التقييم الطبي الفوري:</div>
+                            <div id="eligibilityStatusText" class="text-lg font-black text-emerald-400">أدخل مؤشراتك الحيوية للتحقق...</div>
+                            <p id="eligibilityDetailText" class="text-xs text-slate-300 mt-1">يشترط ألا يقل الوزن عن 50 كغم، ونسبة الهيموجلوبين عن 12.5 g/dL، ومرور 90 يوماً على آخر تبرع.</p>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 bg-white text-slate-800 rounded-2xl p-6 shadow-lg">
+                        <div class="grid sm:grid-cols-2 gap-4 mb-5">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">العمر (بالسنوات)</label>
+                                <input type="number" id="checkAge" value="25" min="16" max="75" class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 font-bold text-slate-900">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">الوزن (كغم)</label>
+                                <input type="number" id="checkWeight" value="72" min="35" max="200" class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 font-bold text-slate-900">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">نسبة الهيموجلوبين (g/dL)</label>
+                                <input type="number" step="0.1" id="checkHb" value="14.2" min="7" max="20" class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 font-bold text-slate-900">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">الأيام المنقضية منذ آخر تبرع</label>
+                                <input type="number" id="checkDays" value="120" min="0" max="1000" class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 font-bold text-slate-900">
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-slate-100">
+                            <label class="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" id="checkHealthy" checked class="w-4 h-4 accent-crimson-600 rounded">
+                                <span>أقر بعدم وجود أمراض معدية أو حمى أو مضادات حيوية حالياً</span>
+                            </label>
+                            <button onclick="evaluateEligibility()" class="px-6 py-3 rounded-xl bg-crimson-600 hover:bg-crimson-700 text-white font-bold text-sm transition shadow-md">فحص الأهلية الآن</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="app-footer"></div>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/eligibility.js"></script>
+</body>
+</html>

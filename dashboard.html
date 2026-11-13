@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم الحية | IBDDMP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-crimson-600 selection:text-white">
+    <div id="toastContainer" class="fixed bottom-4 left-4 right-4 sm:right-auto sm:max-w-sm sm:w-full z-50 flex flex-col gap-3 pointer-events-none"></div>
+    <div id="app-nav"></div>
+
+    <section class="py-12 bg-slate-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
+          <div>
+            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span><h2 class="text-2xl sm:text-3xl font-black text-slate-900">لوحة التحكم السحابية الحية</h2></div>
+            <p class="text-slate-500 text-sm mt-1">مصرف دم رقمي: التبرع يزيد الرصيد، والصرف ينقصه، وكل حركة تُسجَّل</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-3">
+            <span id="currentUserRole" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs"></span>
+            <button id="seedBtn" onclick="seedInitialData()" class="hidden px-4 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 font-bold text-xs transition items-center gap-1.5"><i data-lucide="database" class="w-4 h-4"></i><span>تعبئة بيانات تجريبية</span></button>
+            <button id="clearBtn" onclick="confirmClearAll()" class="hidden px-4 py-2 rounded-xl bg-crimson-50 hover:bg-crimson-100 text-crimson-700 border border-crimson-200 font-bold text-xs transition items-center gap-1.5"><i data-lucide="trash-2" class="w-4 h-4"></i><span>مسح كل البيانات</span></button>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 mb-8">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            <div>
+              <h3 class="text-xl font-black text-slate-900 flex items-center gap-2"><i data-lucide="package-search" class="w-6 h-6 text-crimson-600"></i><span>مخزون وحدات الدم</span></h3>
+              <p class="text-xs sm:text-sm text-slate-500 mt-1">الحد الآمن: 15 وحدة • عجز حرج: 7 وحدات فأقل</p>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-bold">
+              <span class="flex items-center gap-1.5 text-emerald-700"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> آمن</span>
+              <span class="flex items-center gap-1.5 text-amber-700"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> منخفض</span>
+              <span class="flex items-center gap-1.5 text-crimson-700"><span class="w-2.5 h-2.5 rounded-full bg-crimson-600"></span> حرج</span>
+            </div>
+          </div>
+          <div id="inventoryGrid" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4"></div>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-8 mb-8">
+          <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border-2 border-crimson-100">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-crimson-100 text-crimson-700 text-xs font-black mb-2"><i data-lucide="siren" class="w-4 h-4"></i><span>نداء الاستغاثة (RED ALERT)</span></span>
+            <h3 class="text-xl font-black text-slate-900 mb-1">إرسال النداء لمتبرعي نفس الفصيلة</h3>
+            <p class="text-xs text-slate-500 mb-5">يُجمَع كل المتبرعين المسجّلين بنفس الفصيلة، ثم تُرسل لهم الرسالة عبر واتساب أو SMS.</p>
+            <form id="alertForm" onsubmit="launchAlert(event)" class="grid sm:grid-cols-3 gap-4 bg-crimson-50/50 p-4 rounded-2xl border border-crimson-100 mb-4">
+              <div><label class="block text-xs font-bold text-slate-700 mb-1.5">الفصيلة المطلوبة</label>
+                <select id="reqBloodType" class="w-full p-3 rounded-xl bg-white border border-slate-300 font-bold focus:ring-2 focus:ring-crimson-600 outline-none"><option value="O+">O+</option><option value="O-">O-</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1.5">المستشفى</label>
+                <select id="reqCity" class="w-full p-3 rounded-xl bg-white border border-slate-300 font-bold focus:ring-2 focus:ring-crimson-600 outline-none">
+                  <option value="بغداد">بغداد - مدينة الطب</option><option value="الكوت">الكوت - مستشفى الزهراء</option>
+                  <option value="البصرة">البصرة - المستشفى التعليمي</option><option value="أربيل">أربيل - مستشفى الطوارئ</option>
+                  <option value="الموصل">الموصل - المستشفى الجمهوري</option></select></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1.5">ملاحظة (اختياري)</label>
+                <input type="text" id="reqNote" placeholder="مثال: حالة ولادة" class="w-full p-3 rounded-xl bg-white border border-slate-300 text-sm font-semibold focus:ring-2 focus:ring-crimson-600 outline-none"></div>
+              <button type="submit" class="sm:col-span-3 p-3 rounded-xl bg-crimson-600 hover:bg-crimson-700 text-white font-black text-sm shadow-lg shadow-crimson-600/30 transition flex items-center justify-center gap-2"><i data-lucide="radio" class="w-4 h-4"></i><span>إطلاق نداء استغاثة</span></button>
+            </form>
+            <div id="alertResult" class="hidden">
+              <label class="block text-xs font-bold text-slate-700 mb-1">نص الرسالة (قابل للتعديل — {الاسم} يُستبدل باسم كل متبرع)</label>
+              <textarea id="alertMessage" rows="6" class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-sm font-semibold focus:bg-white focus:ring-2 focus:ring-crimson-600 outline-none"></textarea>
+              <div class="flex flex-wrap items-center gap-3 my-3">
+                <button id="nextBtn" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs transition">إرسال للتالي ◀ (واتساب)</button>
+                <button id="copyMsgBtn" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition">نسخ الرسالة</button>
+                <span id="alertSummary" class="text-xs font-bold text-slate-600"></span>
+              </div>
+              <div id="recipientList" class="space-y-3 max-h-96 overflow-y-auto pr-1"></div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 space-y-8">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200">
+              <h3 class="text-xl font-black text-slate-900 mb-1 flex items-center gap-2"><i data-lucide="syringe" class="w-6 h-6 text-crimson-600"></i><span>صرف دم من المخزون</span></h3>
+              <p class="text-xs text-slate-500 mb-4">الصرف ينقص رصيد الفصيلة نفسها، ولا يُسمح بالصرف أكثر من المتوفر.</p>
+              <form id="opsForm" onsubmit="submitOps(event)" class="space-y-3">
+                <div class="grid grid-cols-2 gap-3">
+                  <div><label class="block text-xs font-bold text-slate-700 mb-1">العملية</label>
+                    <select id="opKind" class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-sm font-bold focus:bg-white focus:ring-2 focus:ring-crimson-600 outline-none"><option value="dispense">صرف وحدات</option><option id="adjustOpt" value="adjust" class="hidden">إضافة رصيد (مدير)</option></select></div>
+                  <div><label class="block text-xs font-bold text-slate-700 mb-1">الفصيلة</label><select id="opType" class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-sm font-bold focus:bg-white focus:ring-2 focus:ring-crimson-600 outline-none"><option value="O+">O+</option><option value="O-">O-</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select></div>
+                </div>
+                <div class="grid grid-cols-3 gap-3">
+                  <div><label class="block text-xs font-bold text-slate-700 mb-1">الوحدات</label><input type="number" id="opUnits" value="1" min="1" class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-sm font-semibold focus:bg-white focus:ring-2 focus:ring-crimson-600 outline-none"></div>
+                  <div class="col-span-2"><label class="block text-xs font-bold text-slate-700 mb-1">المريض / المستشفى</label><input type="text" id="opNote" placeholder="اسم المريض أو الجهة" class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-sm font-semibold focus:bg-white focus:ring-2 focus:ring-crimson-600 outline-none"></div>
+                </div>
+                <button type="submit" class="w-full py-3 rounded-xl bg-slate-900 hover:bg-crimson-600 text-white font-bold text-sm transition shadow-md">تنفيذ العملية</button>
+              </form>
+            </div>
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200">
+              <div class="flex items-center justify-between mb-2"><h3 class="text-base font-black text-slate-900">آخر الحركات</h3><a href="log.html" class="text-xs font-bold text-crimson-600">عرض الكل ←</a></div>
+              <div id="recentLog"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="app-footer"></div>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

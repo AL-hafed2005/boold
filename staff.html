@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة الموظفين | IBDDMP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-crimson-600 selection:text-white">
+    <div id="toastContainer" class="fixed bottom-4 left-4 right-4 sm:right-auto sm:max-w-sm sm:w-full z-50 flex flex-col gap-3 pointer-events-none"></div>
+    <div id="app-nav"></div>
+
+    <section class="py-12 bg-slate-50">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mb-1">إدارة الموظفين</h2>
+        <p class="text-slate-500 text-sm mb-8">للمدير فقط: إنشاء حسابات الموظفين وسحب صلاحياتهم. الموظف يسجّل المتبرعين والتبرعات ويصرف الدم، ولا يستطيع الحذف.</p>
+        <div id="staffContent" class="grid md:grid-cols-2 gap-8">
+          <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 h-fit">
+            <h3 class="text-lg font-black text-slate-900 mb-4">إضافة حساب جديد</h3>
+            <form id="staffForm" class="space-y-3">
+              <input type="text" id="stName" required placeholder="الاسم الكامل" class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-sm font-semibold focus:bg-white focus:ring-2 focus:ring-crimson-600 outline-none">
+              <input type="email" id="stEmail" required placeholder="البريد الإلكتروني" dir="ltr" class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-sm font-semibold focus:bg-white focus:ring-2 focus:ring-crimson-600 outline-none">
+              <input type="password" id="stPass" required minlength="6" placeholder="كلمة المرور (6 أحرف فأكثر)" dir="ltr" class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-sm font-semibold focus:bg-white focus:ring-2 focus:ring-crimson-600 outline-none">
+              <select id="stRole" class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-sm font-bold focus:bg-white focus:ring-2 focus:ring-crimson-600 outline-none"><option value="staff">موظف</option><option value="admin">مدير النظام</option></select>
+              <button type="submit" class="w-full py-3 rounded-xl bg-slate-900 hover:bg-crimson-600 text-white font-bold text-sm transition shadow-md">إنشاء الحساب</button>
+            </form>
+          </div>
+          <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200">
+            <h3 class="text-lg font-black text-slate-900 mb-4">المستخدمون</h3>
+            <div id="userRows" class="space-y-3"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="app-footer"></div>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/staff.js"></script>
+</body>
+</html>

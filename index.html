@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المنصة الذكية للتبرع بالدم وإدارة المتبرعين | IBDDMP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-crimson-600 selection:text-white">
+    <div id="toastContainer" class="fixed bottom-4 left-4 right-4 sm:right-auto sm:max-w-sm sm:w-full z-50 flex flex-col gap-3 pointer-events-none"></div>
+    <div id="app-nav"></div>
+
+    <section id="hero" class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28 bg-gradient-to-b from-white via-crimson-50/30 to-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 text-right">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-crimson-100 text-crimson-800 font-bold text-xs sm:text-sm mb-6 border border-crimson-200">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                        <span>مشروع تخرج هندسي متكامل • الجيل القادم من الرعاية الصحية الذكية</span>
+                    </div>
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-tight mb-6">
+                        المنصة الذكية للتبرع بالدم وإدارة المتبرعين
+                        <span class="text-transparent bg-clip-text bg-gradient-to-l from-crimson-600 to-crimson-800 block mt-2">(IBDDMP)</span>
+                    </h1>
+                    <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-8 max-w-2xl">
+                        نظام سحابي ذكي يربط بنوك الدم والمستشفيات بالمتبرعين المؤهلين في الوقت الفعلي. يعتمد على خوارزميات التنبؤ بالطلب، المطابقة الجغرافية الفورية، والفحص الصحي الآلي للقضاء على هدر وحدات الدم وإنقاذ الأرواح في حالات الطوارئ.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="dashboard.html" class="px-7 py-4 rounded-2xl bg-crimson-600 hover:bg-crimson-700 text-white font-bold text-base shadow-xl shadow-crimson-600/25 transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                            <i data-lucide="activity" class="w-5 h-5"></i><span>استعراض لوحة التحكم التفاعلية</span>
+                        </a>
+                        <a href="login.html" class="px-7 py-4 rounded-2xl bg-white hover:bg-slate-100 text-slate-800 border-2 border-slate-200 font-bold text-base transition flex items-center gap-2">
+                            <i data-lucide="play-circle" class="w-5 h-5 text-crimson-600"></i><span>تسجيل الدخول / وضع اللجنة</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="lg:col-span-5">
+                    <div class="bg-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-2xl border border-slate-800 relative animate-float">
+                        <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-crimson-500 animate-pulse"></span>
+                                <span class="font-bold text-sm text-slate-300">مؤشرات الأداء الذكية (KPIs)</span>
+                            </div>
+                            <span class="text-xs bg-slate-800 px-3 py-1 rounded-lg text-crimson-400 font-mono">AI-CORE v1.0</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                            <div class="bg-slate-800/80 p-5 rounded-2xl border border-slate-700/50">
+                                <div class="text-crimson-400 font-black text-3xl sm:text-4xl mb-1">35%</div>
+                                <div class="text-sm font-bold text-white">تقليل هدر وحدات الدم</div>
+                                <div class="text-xs text-slate-400 mt-1">بفضل التنبؤ بالطلب (ARIMA)</div>
+                            </div>
+                            <div class="bg-slate-800/80 p-5 rounded-2xl border border-slate-700/50">
+                                <div class="text-emerald-400 font-black text-3xl sm:text-4xl mb-1">&lt; 15 د</div>
+                                <div class="text-sm font-bold text-white">استجابة الطوارئ SLA</div>
+                                <div class="text-xs text-slate-400 mt-1">مطابقة جغرافية فورية</div>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-l from-crimson-900/60 to-slate-800 p-5 rounded-2xl border border-crimson-700/40 flex items-center justify-between">
+                            <div>
+                                <div class="text-xs text-crimson-300 font-bold mb-1">دقة تتبع المخزون وسلسلة التبريد</div>
+                                <div class="text-2xl font-black text-white">99.8% تتبع رقمي</div>
+                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-crimson-600/20 border border-crimson-500/40 flex items-center justify-center text-crimson-400">
+                                <i data-lucide="qr-code" class="w-6 h-6"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="app-footer"></div>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/home.js"></script>
+</body>
+</html>
